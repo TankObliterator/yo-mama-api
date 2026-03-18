@@ -1,7 +1,12 @@
 # Yo Mama API
 
 A simple API for fetching "Yo Mama" jokes across various categories.
-> AI was heavily utilized in the creation of this API.
+> AI was utilized in the creation of this API.
+
+## Public URL
+
+https://yo-mama.tankobliterator.net
+> This URL made available on a best-effort basis. If you require reliability, please self-host the API.
 
 ## Categories
 
@@ -21,20 +26,37 @@ A simple API for fetching "Yo Mama" jokes across various categories.
 - `GET /all`: Fetches all jokes across all categories.
 - `GET /all/:category`: Fetches all jokes from the specified category.
 
-## Environment Variables
-
-The application can be configured with the following environment variables:
-
-- `PORT`: (Default: `3000`) The port the API runs on.
-- `FETCH_UPDATES`: (Default: `false`) If set to `true`, the application will check the specified GitHub repository once a day for an updated jokes list.
-- `GITHUB_REPO_RAW_URL`: (Default: `https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes`) The base URL where the raw `.json` files are hosted, to fetch updates from.
+# Self-hosting
 
 ## Docker
 
-This API includes a fully automated Docker build workflow. When changes are pushed to `main` or `master`, the `.github/workflows/docker-publish.yml` creates a new Docker image and pushes it to the GitHub Container Registry (`ghcr.io`).
+When changes are pushed to `main`, a new Docker image is created and pushed to `ghcr.io/TankObliterator/yo-mama-api:latest`.
 
-Run the Docker image:
+### Docker Run Command
 
 ```bash
 docker run -p 3000:3000 -e FETCH_UPDATES=true ghcr.io/TankObliterator/yo-mama-api:latest
 ```
+
+### Docker Compose Command
+
+```bash
+version: '3.8'
+
+services:
+  yo-mama-api:
+    image: ghcr.io/tankobliterator/yo-mama-api:latest
+    container_name: yo-mama-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - FETCH_UPDATES=true
+```
+
+### Environment Variables
+
+- `PORT`: (Default: `3000`) The port the API runs on.
+- `FETCH_UPDATES`: (Default: `false`) If set to `true`, the application will check the specified GitHub repository once a day for an updated jokes list.
+- `GITHUB_REPO_RAW_URL`: (Default: `https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes`) The base URL where the raw `.json` files are hosted, to fetch updates from.
