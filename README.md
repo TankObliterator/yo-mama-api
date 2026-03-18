@@ -10,6 +10,7 @@ A simple API for fetching "Yo Mama" jokes across various categories.
 - `hairy`
 - `dumb`
 - `poor`
+- `lazy`
 
 ## Endpoints
 

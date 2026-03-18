@@ -12,7 +12,7 @@ const FETCH_UPDATES = process.env.FETCH_UPDATES === 'true';
 const GITHUB_REPO_RAW_URL = process.env.GITHUB_REPO_RAW_URL || 'https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes';
 
 // Standard categories
-const jokeCategories = ['fat', 'old', 'ugly', 'hairy', 'dumb', 'poor'];
+const jokeCategories = ['fat', 'old', 'ugly', 'hairy', 'dumb', 'poor', 'lazy'];
 const jokes = {};
 
 // Load jokes from disk
