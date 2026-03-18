@@ -78,44 +78,57 @@ app.get('/', (req, res) => {
         message: 'Welcome to the Yo Mama API!',
         categories: jokeCategories,
         endpoints: {
-            random: '/jokes/random',
-            byCategory: '/jokes/:category',
-            allInCategory: '/jokes/:category/all'
+            random: '/random',
+            randomByCategory: '/random/:category',
+            all: '/all',
+            allByCategory: '/all/:category'
         }
     });
 });
 
-app.get('/jokes/random', (req, res) => {
-    // Pick a random category first
-    const availableCategories = jokeCategories.filter(c => jokes[c] && jokes[c].length > 0);
-    if (availableCategories.length === 0) {
-        return res.status(404).json({ error: 'No jokes found' });
+app.get('/all/:category?', (req, res) => {
+    const category = req.params.category ? req.params.category.toLowerCase() : null;
+    
+    if (category) {
+        if (!jokeCategories.includes(category)) {
+            return res.status(404).json({ error: 'Category not found', available_categories: jokeCategories });
+        }
+        return res.json({ category, jokes: jokes[category] || [] });
+    } else {
+        let allJokes = [];
+        for (const cat of jokeCategories) {
+            if (jokes[cat]) {
+                allJokes = allJokes.concat(jokes[cat]);
+            }
+        }
+        return res.json({ jokes: allJokes });
     }
-    const randomCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
-    const categoryJokes = jokes[randomCategory];
-    const randomJoke = categoryJokes[Math.floor(Math.random() * categoryJokes.length)];
-    res.json({ category: randomCategory, joke: randomJoke });
 });
 
-app.get('/jokes/:category', (req, res) => {
-    const category = req.params.category.toLowerCase();
-    if (!jokeCategories.includes(category)) {
-        return res.status(404).json({ error: 'Category not found', available_categories: jokeCategories });
+app.get('/random/:category?', (req, res) => {
+    const category = req.params.category ? req.params.category.toLowerCase() : null;
+    
+    if (category) {
+        if (!jokeCategories.includes(category)) {
+            return res.status(404).json({ error: 'Category not found', available_categories: jokeCategories });
+        }
+        const categoryJokes = jokes[category] || [];
+        if (categoryJokes.length === 0) {
+            return res.status(404).json({ error: 'No jokes found for this category' });
+        }
+        const randomJoke = categoryJokes[Math.floor(Math.random() * categoryJokes.length)];
+        return res.json({ category, joke: randomJoke });
+    } else {
+        // Pick a random category first
+        const availableCategories = jokeCategories.filter(c => jokes[c] && jokes[c].length > 0);
+        if (availableCategories.length === 0) {
+            return res.status(404).json({ error: 'No jokes found' });
+        }
+        const randomCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
+        const categoryJokes = jokes[randomCategory];
+        const randomJoke = categoryJokes[Math.floor(Math.random() * categoryJokes.length)];
+        return res.json({ category: randomCategory, joke: randomJoke });
     }
-    const categoryJokes = jokes[category] || [];
-    if (categoryJokes.length === 0) {
-        return res.status(404).json({ error: 'No jokes found for this category' });
-    }
-    const randomJoke = categoryJokes[Math.floor(Math.random() * categoryJokes.length)];
-    res.json({ category, joke: randomJoke });
-});
-
-app.get('/jokes/:category/all', (req, res) => {
-    const category = req.params.category.toLowerCase();
-    if (!jokeCategories.includes(category)) {
-        return res.status(404).json({ error: 'Category not found', available_categories: jokeCategories });
-    }
-    res.json({ category, jokes: jokes[category] || [] });
 });
 
 app.listen(PORT, () => {

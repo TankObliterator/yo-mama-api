@@ -1,6 +1,7 @@
 # Yo Mama API
 
 A simple API for fetching "Yo Mama" jokes across various categories.
+> AI was heavily utilized in the creation of this API.
 
 ## Categories
 
@@ -15,9 +16,10 @@ A simple API for fetching "Yo Mama" jokes across various categories.
 ## Endpoints
 
 - `GET /`: Get basic API info and endpoints.
-- `GET /jokes/random`: Fetches a random joke from a random category.
-- `GET /jokes/:category`: Fetches a random joke from the specified category.
-- `GET /jokes/:category/all`: Fetches all jokes from the specified category.
+- `GET /random`: Fetches a random joke from any category.
+- `GET /random/:category`: Fetches a random joke from the specified category.
+- `GET /all`: Fetches all jokes across all categories.
+- `GET /all/:category`: Fetches all jokes from the specified category.
 
 ## Environment Variables
 
