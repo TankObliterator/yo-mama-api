@@ -24,7 +24,7 @@ The application can be configured with the following environment variables:
 
 - `PORT`: (Default: `3000`) The port the API runs on.
 - `FETCH_UPDATES`: (Default: `false`) If set to `true`, the application will check the specified GitHub repository once a day for an updated jokes list.
-- `GITHUB_REPO_RAW_URL`: (Default: empty string. You need to provide it like `https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY/main/jokes` for updates to work) The base URL where the raw `.json` files are hosted, to fetch updates from.
+- `GITHUB_REPO_RAW_URL`: (Default: `https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes`) The base URL where the raw `.json` files are hosted, to fetch updates from.
 
 ## Docker
 
@@ -33,5 +33,5 @@ This API includes a fully automated Docker build workflow. When changes are push
 Run the Docker image:
 
 ```bash
-docker run -p 3000:3000 -e FETCH_UPDATES=true ghcr.io/YOUR_USERNAME/yo-mama-api:latest
+docker run -p 3000:3000 -e FETCH_UPDATES=true ghcr.io/TankObliterator/yo-mama-api:latest
 ```

@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const FETCH_UPDATES = process.env.FETCH_UPDATES === 'true';
 // Provide the base URL to your raw github repository folder containing the JSON files
-const GITHUB_REPO_RAW_URL = process.env.GITHUB_REPO_RAW_URL || 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY/main/jokes';
+const GITHUB_REPO_RAW_URL = process.env.GITHUB_REPO_RAW_URL || 'https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes';
 
 // Standard categories
 const jokeCategories = ['fat', 'old', 'ugly', 'hairy', 'dumb', 'poor'];
