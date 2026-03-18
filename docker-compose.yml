@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  yo-mama-api:
+    image: ghcr.io/tankobliterator/yo-mama-api:latest
+    container_name: yo-mama-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - FETCH_UPDATES=true
