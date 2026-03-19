@@ -6,7 +6,7 @@ A simple API for fetching "Yo Mama" jokes across various categories.
 ```
 https://yo-mama.tankobliterator.net
 ```
-> This URL is made available on a best-effort basis. If you require reliability, please self-host the API.
+> This URL is made available on a best-effort basis. If you require full reliability, please self-host the API.
 
 ### Categories
 
