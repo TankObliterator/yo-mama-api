@@ -1,11 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const cron = require('node-cron');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 const FETCH_UPDATES = process.env.FETCH_UPDATES === 'true';
 // Provide the base URL to your raw github repository folder containing the JSON files
