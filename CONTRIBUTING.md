@@ -2,12 +2,12 @@
 
 Thank you for your interest in contributing to the Yo Mama API!
 
-We welcome all new "Yo Mama" jokes and general improvements to the API. To get started, please follow these guidelines.
+We welcome all new "Yo Mama" jokes (see guidelines), and general improvements to the API. To get started, please follow the rules outlined below.
 
 ## Joke Guidelines
 
 - Jokes should be in the format "Yo mama's so..." (e.g., "Yo mama's so fat, she has her own zip code.").
-- Jokes should remain semi-appropriate.
+- Keep jokes reasonably appropriate.
 - Jokes should be in English.
 
 ## Adding New Jokes

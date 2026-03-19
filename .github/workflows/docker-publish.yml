@@ -3,6 +3,13 @@ name: Publish Docker Image
 on:
   push:
     branches: [ "main", "master" ]
+    paths-ignore:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+      - 'docker-compose.yml'
+      - '.gitignore'
+      - '.dockerignore'
   workflow_dispatch:
 
 env:
