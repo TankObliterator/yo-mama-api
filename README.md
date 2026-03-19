@@ -35,7 +35,7 @@ When changes are pushed to `main`, a new Docker image is created and pushed to `
 ### Docker Run Command
 
 ```bash
-docker run -p 3000:3000 -e FETCH_UPDATES=true ghcr.io/TankObliterator/yo-mama-api:latest
+docker run -p 3000:3000 -e FETCH_UPDATES=false ghcr.io/TankObliterator/yo-mama-api:latest
 ```
 
 ### Docker Compose file
@@ -52,7 +52,7 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
-      - FETCH_UPDATES=true
+      - FETCH_UPDATES=false
 ```
 
 ### Environment Variables
@@ -63,5 +63,6 @@ services:
 
 # Credits
 
-- Gemini 3 Pro was utilized in the creation of this API.
+- Various AI tools were utilized in the creation of this API.
 - Inspired by https://github.com/beanboi7/yomomma-apiv2.
+- Origional jokes list from https://github.com/aadithyanr/yomama-jokes-api/blob/main/jokes/jokes.txt.
