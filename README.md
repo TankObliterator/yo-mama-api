@@ -59,7 +59,7 @@ services:
 
 - `PORT`: (Default: `3000`) The port the API runs on.
 - `FETCH_UPDATES`: (Default: `false`) If set to `true`, the application will check the specified GitHub repository once a day for an updated jokes list.
-- `GITHUB_REPO_RAW_URL`: (Default: `https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes`) The base URL where the raw `.json` files are hosted, to fetch updates from.
+- `GITHUB_REPO_RAW_URL`: (Default: `https://raw.githubusercontent.com/TankObliterator/yo-mama-api/main/jokes`) The base URL where the raw `.txt` files are hosted, to fetch updates from.
 
 # Credits
 

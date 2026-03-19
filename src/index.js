@@ -18,11 +18,11 @@ const jokes = {};
 // Load jokes from disk
 function loadJokesFromDisk() {
     jokeCategories.forEach(category => {
-        const filePath = path.join(__dirname, '..', 'jokes', `${category}.json`);
+        const filePath = path.join(__dirname, '..', 'jokes', `${category}.txt`);
         try {
             if (fs.existsSync(filePath)) {
                 const data = fs.readFileSync(filePath, 'utf8');
-                jokes[category] = JSON.parse(data);
+                jokes[category] = data.split(/\r?\n/).map(j => j.trim()).filter(j => j.length > 0);
                 console.log(`Loaded ${jokes[category].length} jokes for category '${category}' from disk.`);
             } else {
                 jokes[category] = [];
@@ -40,17 +40,18 @@ async function fetchJokesFromGithub() {
     console.log('Checking GitHub for updated jokes list...');
     for (const category of jokeCategories) {
         try {
-            const response = await axios.get(`${GITHUB_REPO_RAW_URL}/${category}.json`);
-            if (response.data && Array.isArray(response.data)) {
-                jokes[category] = response.data;
+            const response = await axios.get(`${GITHUB_REPO_RAW_URL}/${category}.txt`);
+            if (response.data && typeof response.data === 'string') {
+                const parsedJokes = response.data.split(/\r?\n/).map(j => j.trim()).filter(j => j.length > 0);
+                jokes[category] = parsedJokes;
                 console.log(`Updated ${category} jokes from GitHub (${jokes[category].length} jokes).`);
-                
+
                 // Save to local disk cache
-                const filePath = path.join(__dirname, '..', 'jokes', `${category}.json`);
-                fs.writeFileSync(filePath, JSON.stringify(response.data, null, 2));
+                const filePath = path.join(__dirname, '..', 'jokes', `${category}.txt`);
+                fs.writeFileSync(filePath, parsedJokes.join('\n'));
             }
         } catch (error) {
-            console.error(`Failed to fetch ${category}.json from GitHub:`, error.message);
+            console.error(`Failed to fetch ${category}.txt from GitHub:`, error.message);
         }
     }
 }
@@ -62,7 +63,7 @@ if (FETCH_UPDATES) {
     console.log('Fetching updates from github is ENABLED.');
     // Run immediately on startup if updates enabled
     fetchJokesFromGithub();
-    
+
     // Schedule to run once a day at midnight
     cron.schedule('0 0 * * *', () => {
         console.log('Running daily cron job to update jokes from GitHub...');
@@ -88,7 +89,7 @@ app.get('/', (req, res) => {
 
 app.get('/all/:category?', (req, res) => {
     const category = req.params.category ? req.params.category.toLowerCase() : null;
-    
+
     if (category) {
         if (!jokeCategories.includes(category)) {
             return res.status(404).json({ error: 'Category not found', available_categories: jokeCategories });
@@ -107,7 +108,7 @@ app.get('/all/:category?', (req, res) => {
 
 app.get('/random/:category?', (req, res) => {
     const category = req.params.category ? req.params.category.toLowerCase() : null;
-    
+
     if (category) {
         if (!jokeCategories.includes(category)) {
             return res.status(404).json({ error: 'Category not found', available_categories: jokeCategories });
