@@ -63,6 +63,6 @@ services:
 
 # Credits
 
-- Various AI tools were utilized in the creation of this API.
+- Various AI tools were utilized in the creation of this API. (AKA: all the actual code generated with AI)
 - Inspired by https://github.com/beanboi7/yomomma-apiv2.
 - Origional jokes list from https://github.com/aadithyanr/yomama-jokes-api.
