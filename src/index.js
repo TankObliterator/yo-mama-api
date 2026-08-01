@@ -122,15 +122,20 @@ app.get('/random/:category?', (req, res) => {
         const randomJoke = categoryJokes[Math.floor(Math.random() * categoryJokes.length)];
         return res.json({ category, joke: randomJoke });
     } else {
-        // Pick a random category first
-        const availableCategories = jokeCategories.filter(c => jokes[c] && jokes[c].length > 0);
-        if (availableCategories.length === 0) {
+        // Pick from the combined pool of all jokes directly to ensure uniform selection
+        const allJokes = [];
+        for (const cat of jokeCategories) {
+            if (jokes[cat]) {
+                jokes[cat].forEach(joke => {
+                    allJokes.push({ category: cat, joke });
+                });
+            }
+        }
+        if (allJokes.length === 0) {
             return res.status(404).json({ error: 'No jokes found' });
         }
-        const randomCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
-        const categoryJokes = jokes[randomCategory];
-        const randomJoke = categoryJokes[Math.floor(Math.random() * categoryJokes.length)];
-        return res.json({ category: randomCategory, joke: randomJoke });
+        const randomJokeObject = allJokes[Math.floor(Math.random() * allJokes.length)];
+        return res.json({ category: randomJokeObject.category, joke: randomJokeObject.joke });
     }
 });
 
