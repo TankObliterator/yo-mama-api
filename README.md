@@ -41,8 +41,6 @@ docker run -p 3000:3000 -e FETCH_UPDATES=false ghcr.io/TankObliterator/yo-mama-a
 ### Docker Compose file
 
 ```yaml
-version: '3.8'
-
 services:
   yo-mama-api:
     image: ghcr.io/tankobliterator/yo-mama-api:latest
