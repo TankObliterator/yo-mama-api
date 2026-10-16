@@ -2,6 +2,7 @@
   "name": "yo-mama-api",
   "version": "1.0.0",
   "description": "API for yo mama jokes",
+  "license": "MIT",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
